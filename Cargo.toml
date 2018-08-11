@@ -1,0 +1,9 @@
+[package]
+
+name = "iron-postgres-middleware"
+version = "0.2.0"
+authors = ["Weihan Lin <whl36512@gmail.com>"]
+
+[dependencies]
+iron = "^0.6.0"
+r2d2_postgres = "^0.14.0"
