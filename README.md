@@ -1,6 +1,7 @@
 # iron-postgres-middleware
 
-An attempt to create postgres middleware for the [Iron](https://github.com/iron/iron/) web framework
+An attempt to create postgres middleware for the [Iron](https://github.com/iron/iron/) web framework.
+
 Version 0.2 is an update to https://github.com/martinsp/iron-postgres-middleware/
 
 ## Usage
