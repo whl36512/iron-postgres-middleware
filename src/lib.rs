@@ -66,9 +66,9 @@ impl BeforeMiddleware for PostgresMiddleware {
         debug!("201808112145 PostgresMiddleware::before()  entering" );
         //let ret= req.extensions.insert::<PostgresMiddleware>(Value(self.pool.clone()));
         let value = Value(self.pool.clone()) ;
-        debug!("201808112145 PostgresMiddleware::before()  value={:?}", value );
-        let ret= req.extensions.insert::<PostgresMiddleware>(value);
-        debug!("201808112145 PostgresMiddleware::before()  ret = {:?}" , ret);
+        debug!("201808112145 PostgresMiddleware::before()  after value"  );
+        let _ret= req.extensions.insert::<PostgresMiddleware>(value);
+        debug!("201808112145 PostgresMiddleware::before()  after ret " );
         Ok(())
     }
 }
