@@ -58,19 +58,13 @@ impl PostgresMiddleware {
       ;
     debug!("201808120931 PostgresMiddleware::new() connected to database pool= \n{:?}" , pool );
     let pool =  Arc::new(pool);
-    debug!("201808112145 PostgresMiddleware::new()  Arc::pool = \n{:?}" , pool);
     Ok(PostgresMiddleware { pool: pool, })
   }
 }
 
 impl BeforeMiddleware for PostgresMiddleware {
     fn before(&self, req: &mut Request) -> IronResult<()> {
-        debug!("201808112145 PostgresMiddleware::before()  entering" );
-        //let ret= req.extensions.insert::<PostgresMiddleware>(Value(self.pool.clone()));
-        let value = Value(self.pool.clone()) ;
-        debug!("201808112145 PostgresMiddleware::before()  after value"  );
-        let _ret= req.extensions.insert::<PostgresMiddleware>(value);
-        debug!("201808112145 PostgresMiddleware::before()  after ret " );
+        req.extensions.insert::<PostgresMiddleware>(Value(self.pool.clone()));
         Ok(())
     }
 }
@@ -100,9 +94,9 @@ impl<'a, 'b> PostgresReqExt for Request<'a, 'b> {
   fn db_conn(&self) -> PConnection {
     let poll_value = self.extensions.get::<PostgresMiddleware>().unwrap();
     let &Value(ref poll) = poll_value;
-    info!("201808122156 PostgresReqExt::db_conn  poll = {:?}" , poll);
+    debug!("201808122156 PostgresReqExt::db_conn  poll = {:?}" , poll);
     let db_conn = poll.get().unwrap();
-    info!("201808120958 PostgresReqExt::db_conn  db_conn = {:?}" , db_conn);
+    debug!("201808120958 PostgresReqExt::db_conn  db_conn = {:?}" , db_conn);
     return db_conn;
   }
 }
