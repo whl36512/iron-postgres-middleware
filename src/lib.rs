@@ -54,10 +54,10 @@ impl PostgresMiddleware {
       .build(manager)
       .unwrap() 
       ;
-    info!("201808120931 PostgresMiddleware::new() connected to database {:?}" , pool );
-    let pool =  Arc::new(pool);
-    info!("201808112145 PostgresMiddleware::new()  Arc::pool {:?}" , pool);
-    Ok(PostgresMiddleware { pool: pool, })
+    info!("201808120931 PostgresMiddleware::new() connected to database pool= {:?}" , pool );
+    let arc_pool =  Arc::new(pool);
+    info!("201808112145 PostgresMiddleware::new()  Arc::pool = {:?}" , arc_pool);
+    Ok(PostgresMiddleware { pool: arc_pool, })
   }
 }
 
