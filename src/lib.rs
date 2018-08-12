@@ -13,12 +13,14 @@ type PPool       = r2d2::Pool<r2d2_postgres::PostgresConnectionManager>         
 type PConnection = r2d2::PooledConnection<r2d2_postgres::PostgresConnectionManager> ;
 
 /// Iron middleware that allows for postgres connections within requests.
+#[derive(Debug)]
 pub struct PostgresMiddleware {
   /// A pool of postgres connections that are shared between requests.
   //pub pool: Arc<r2d2::Pool<r2d2_postgres::PostgresConnectionManager>> ,
   pub pool: Arc<PPool> ,
 }
 
+#[derive(Debug)]
 pub struct Value(Arc<PPool>);
 
 impl typemap::Key for PostgresMiddleware { type Value = Value; }
