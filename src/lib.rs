@@ -1,3 +1,4 @@
+#[macro_use] extern crate log;
 extern crate iron;
 extern crate r2d2_postgres;
 
@@ -46,6 +47,7 @@ impl PostgresMiddleware {
   */
 
   pub fn new(pg_connection_str: &str, pool_size: u32 ) -> Result<PostgresMiddleware, Box<Error>> {
+    info!("201808112142 connecting to databast at {}", pg_connection_str);
     let manager = PostgresConnectionManager::new(pg_connection_str, TlsMode::None).unwrap() ;
     let pool  = r2d2::Pool::builder()
       .max_size(pool_size)
