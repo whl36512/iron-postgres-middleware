@@ -63,7 +63,12 @@ impl PostgresMiddleware {
 
 impl BeforeMiddleware for PostgresMiddleware {
     fn before(&self, req: &mut Request) -> IronResult<()> {
-        req.extensions.insert::<PostgresMiddleware>(Value(self.pool.clone()));
+        debug!("201808112145 PostgresMiddleware::before()  entering" );
+        //let ret= req.extensions.insert::<PostgresMiddleware>(Value(self.pool.clone()));
+        let value = Value(self.pool.clone()) ;
+        debug!("201808112145 PostgresMiddleware::before()  value={:?}", value );
+        let ret= req.extensions.insert::<PostgresMiddleware>(value);
+        debug!("201808112145 PostgresMiddleware::before()  ret = {:?}" , ret);
         Ok(())
     }
 }
