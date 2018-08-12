@@ -16,10 +16,11 @@ type PConnection = r2d2::PooledConnection<r2d2_postgres::PostgresConnectionManag
 pub struct PostgresMiddleware {
   /// A pool of postgres connections that are shared between requests.
   //pub pool: Arc<r2d2::Pool<r2d2_postgres::PostgresConnectionManager>> ,
-  pub pool: Arc<PPool> ,
+  //pub pool: Arc<PPool> ,
+  pub pool: PPool ,
 }
 
-pub struct Value(Arc<PPool>);
+pub struct Value(PPool);
 
 impl typemap::Key for PostgresMiddleware { type Value = Value; }
 
@@ -55,9 +56,9 @@ impl PostgresMiddleware {
       .unwrap() 
       ;
     debug!("201808120931 PostgresMiddleware::new() connected to database pool= {:?}" , pool );
-    let arc_pool =  Arc::new(pool);
-    debug!("201808112145 PostgresMiddleware::new()  Arc::pool = {:?}" , arc_pool);
-    Ok(PostgresMiddleware { pool: arc_pool, })
+    //let pool =  Arc::new(pool);
+    //debug!("201808112145 PostgresMiddleware::new()  Arc::pool = {:?}" , pool);
+    Ok(PostgresMiddleware { pool: pool, })
   }
 }
 
