@@ -47,16 +47,16 @@ impl PostgresMiddleware {
   */
 
   pub fn new(pg_connection_str: &str, pool_size: u32 ) -> Result<PostgresMiddleware, Box<Error>> {
-    info!("201808112142 PostgresMiddleware::new() connecting to database at {}", pg_connection_str);
+    debug!("201808112142 PostgresMiddleware::new() connecting to database at {}", pg_connection_str);
     let manager = PostgresConnectionManager::new(pg_connection_str, TlsMode::None).unwrap() ;
     let pool  = r2d2::Pool::builder()
       .max_size(pool_size)
       .build(manager)
       .unwrap() 
       ;
-    info!("201808120931 PostgresMiddleware::new() connected to database pool= {:?}" , pool );
+    debug!("201808120931 PostgresMiddleware::new() connected to database pool= {:?}" , pool );
     let arc_pool =  Arc::new(pool);
-    info!("201808112145 PostgresMiddleware::new()  Arc::pool = {:?}" , arc_pool);
+    debug!("201808112145 PostgresMiddleware::new()  Arc::pool = {:?}" , arc_pool);
     Ok(PostgresMiddleware { pool: arc_pool, })
   }
 }
