@@ -93,7 +93,9 @@ impl<'a, 'b> PostgresReqExt for Request<'a, 'b> {
   fn db_conn(&self) -> PConnection {
     let poll_value = self.extensions.get::<PostgresMiddleware>().unwrap();
     let &Value(ref poll) = poll_value;
-
-    return poll.get().unwrap();
+    info!("201808122156 PostgresReqExt::db_conn  poll = {:?}" , poll);
+    let db_conn = poll.get().unwrap();
+    info!("201808120958 PostgresReqExt::db_conn  db_conn = {:?}" , db_conn);
+    return db_conn;
   }
 }
